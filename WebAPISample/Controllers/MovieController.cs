@@ -44,6 +44,7 @@ namespace WebAPISample.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
+
             }
         }
 
@@ -52,19 +53,27 @@ namespace WebAPISample.Controllers
         public void Put([FromBody] Movie movie)
         {
             // Update movie in db logic
+
             var movieToChange = _context.Movies.Find(movie.MovieId);
             
             movieToChange.Title = movie.Title;
             movieToChange.DirectorName = movie.DirectorName;
             movieToChange.Genre = movie.Genre;
-            
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(int id, Movie movie)
         {
-            // Delete movie from db logic
+            if(ModelState.IsValid)
+            {
+                _context.Movies.Remove(movie);
+                _context.SaveChanges();
+            }
+            else
+            {
+                Delete(id, movie);
+            }
         }
     }
 }

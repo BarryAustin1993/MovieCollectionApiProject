@@ -17,8 +17,8 @@ namespace WebAPISample.Data
 
             modelBuilder.Entity<Movie>()
                 .HasData(
-                    new Movie 
-                    { 
+                    new Movie
+                    {
                         MovieId = 1,
                         Title = "The Departed",
                         Genre = "Drama",
