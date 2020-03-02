@@ -7,44 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPISample.Data;
 using WebAPISample.Models;
 
-
-
 namespace WebAPISample.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
+        private ApplicationContext _context;
+        public MovieController(ApplicationContext context)
+        {
+            _context = context;
+        }
         // GET: api/Movie
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            // Retrieve all movies from db logic
+            var movies = _context.Movies.Select(m => m.Title).ToList();
+            return movies;
         }
 
         // GET: api/Movie/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Movie Get(int id)
         {
-            return "value";
+            // Retrieve movie by id from db logic
+            Movie selectedMovie = _context.Movies.Find(id);
+            return selectedMovie;
         }
 
         // POST: api/Movie
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            // Create movie in db logic
         }
 
         // PUT: api/Movie/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+            // Update movie in db logic
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            // Delete movie from db logic
         }
     }
 }
