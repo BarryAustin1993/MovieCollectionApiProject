@@ -65,10 +65,6 @@ namespace WebAPISample.Controllers
                 _context.Movies.Remove(movie);
                 _context.SaveChanges();
             }
-            else
-            {
-                Delete(id, movie);
-            }
         }
     }
 }
