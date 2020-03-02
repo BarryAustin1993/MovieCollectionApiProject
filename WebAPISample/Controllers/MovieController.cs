@@ -41,19 +41,24 @@ namespace WebAPISample.Controllers
         public void Post([FromBody] Movie movie)
         {
             // Create movie in db logic
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(movie);
-                _context.SaveChanges();
+
             }
         }
 
         // PUT: api/Movie/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put([FromBody] Movie movie)
         {
             // Update movie in db logic
 
+            var movieToChange = _context.Movies.Find(movie.MovieId);
+            
+            movieToChange.Title = movie.Title;
+            movieToChange.DirectorName = movie.DirectorName;
+            movieToChange.Genre = movie.Genre;
         }
 
         // DELETE: api/ApiWithActions/5
