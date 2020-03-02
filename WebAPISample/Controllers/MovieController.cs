@@ -23,15 +23,17 @@ namespace WebAPISample.Controllers
         public IEnumerable<string> Get()
         {
             // Retrieve all movies from db logic
-            return new string[] { "value1", "value2" };
+            var movies = _context.Movies.Select(m => m.Title).ToList();
+            return movies;
         }
 
         // GET: api/Movie/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Movie Get(int id)
         {
             // Retrieve movie by id from db logic
-            return "value";
+            Movie selectedMovie = _context.Movies.Find(id);
+            return selectedMovie;
         }
 
         // POST: api/Movie
