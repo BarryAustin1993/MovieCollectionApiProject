@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebAPISample.Data;
+using WebAPISample.Models;
 
 namespace WebAPISample
 {
@@ -56,5 +57,6 @@ namespace WebAPISample
                 endpoints.MapControllers();
             });
         }
+        
     }
 }
