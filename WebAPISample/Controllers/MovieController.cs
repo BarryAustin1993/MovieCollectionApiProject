@@ -23,7 +23,7 @@ namespace WebAPISample.Controllers
         public IEnumerable<string> Get()
         {
             // Retrieve all movies from db logic
-            var movies = _context.Movies.Select(m => m.Title).ToList();
+            var movies = _context.Movies.Select(m => m.Title);
             return movies;
         }
 
@@ -44,7 +44,7 @@ namespace WebAPISample.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
-
+                _context.SaveChanges();
             }
         }
 
@@ -59,20 +59,18 @@ namespace WebAPISample.Controllers
             movieToChange.Title = movie.Title;
             movieToChange.DirectorName = movie.DirectorName;
             movieToChange.Genre = movie.Genre;
+            _context.SaveChanges();
+            
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id, Movie movie)
+        public void Delete(Movie movie)
         {
             if(ModelState.IsValid)
             {
                 _context.Movies.Remove(movie);
                 _context.SaveChanges();
-            }
-            else
-            {
-                Delete(id, movie);
             }
         }
     }
