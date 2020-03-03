@@ -41,11 +41,8 @@ namespace WebAPISample.Controllers
         public void Post([FromBody] Movie movie)
         {
             // Create movie in db logic
-            if (ModelState.IsValid)
-            {
                 _context.Add(movie);
                 _context.SaveChanges();
-            }
         }
 
         // PUT: api/Movie/5

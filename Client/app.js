@@ -1,8 +1,10 @@
 (function($){
-    function processForm( e ){
+
+function addMovieToDataBase( e ){
         var dict = {
-        	Title : this["title"].value,
-        	Director: this["director"].value
+            Title : this["title"].value,
+            DirectorName: this["directorName"].value,
+            Genre : this["genre"].value
         };
 
         $.ajax({
@@ -11,16 +13,55 @@
             type: 'post',
             contentType: 'application/json',
             data: JSON.stringify(dict),
-            success: function( data, textStatus, jQxhr ){
-                $('#response pre').html( data );
+            success: function(data){
+                $('#response pre').html(data);
             },
-            error: function( jqXhr, textStatus, errorThrown ){
-                console.log( errorThrown );
+            error: function(errorThrown){
+                console.log(errorThrown);
             }
         });
 
         e.preventDefault();
     }
 
-    $('#my-form').submit( processForm );
+    $('#my-form').submit( addMovieToDataBase );
+
+
+    function showAllMovies(){
+        $.ajax({
+            url: 'https://localhost:44325/api/movie',
+            dataType: 'json',
+            type: 'get',
+            contentType: 'application/json',
+            success: function (data) {
+                $("#DisplayScreen").html('');
+                var DIV = '';
+                $.each(data, function(i, item){
+                    var rows = "<tr>" +
+                    "<td id = 'Title'>" + item + "</td>" +
+                    "</tr";
+                $("#Table").append(rows);
+                });
+                console.log(data);
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                console.log( errorThrown );
+            }
+        });
+    };
+
+
+    $('#showAllMovies').submit( showAllMovies );
+
+
+    
+
+
+    
+
+
+
+
+
 })(jQuery);
+
