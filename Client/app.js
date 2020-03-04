@@ -47,6 +47,7 @@ function tableAppend(i ,value){
                 "<td id='title'>" + value.title + "</td>" + 
                 "<td id='directorName'>" + value.directorName + "</td>" + 
                 "<td id='genre'>" + value.genre + "</td>" +
+                "<td id='edit'><button type='submit'>Submit</button></td>" +
                 "</tr>";
                  table.append(rows);
 }
