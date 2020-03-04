@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>jQuery AJAX POST Form</title>
+    <title>Movie Library</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
-<body>
-    <div id="response">
-    <pre></pre>
-    </div>
 
-<form id="my-form">
+<body>
+
+    <h1 align="center">Movie Library</h1>
+
+<br>
+
+<form id="movieForm" align="middle">
+    <span>
+        <h4 >Edit the Table</h4>
+    </span>
+    <button type="button" onclick="edit()">Save Changes</button>
+    <br>
+    <br>
+    <center><table>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Director</th>
+        </tr>
+        <tbody id="movieTable"></tbody>
+    </table></center>
+</form>
+
+<h4 align="middle">Do you not see your movie? Add it here!</h4>
+<form id="my-form" class="form" align="middle">
     <input type="text" name="title" placeholder="Title" />
     <input type="text" name="directorName" placeholder="Director Name" />
     <input type="text" name="genre" placeholder="Genre" />
-
     <button type="submit">Submit</button>
-    <button type="submit">Show Library</button>
 </form>
-
-<div class="Container", id="DisplayScreen">
-    <p>
-        Data Should Show here!
-    </p>
-</div>
-
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

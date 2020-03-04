@@ -1,67 +1,49 @@
-(function($){
+var table = $("#movieTable");
 
-function addMovieToDataBase( e ){
-        var dict = {
-            Title : this["title"].value,
-            DirectorName: this["directorName"].value,
-            Genre : this["genre"].value
+function ajax(url, type, info, htmlMethod) {
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: type,
+        contentType: 'application/json',
+        data: info,
+        success: htmlMethod,
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
+
+(function ($) {
+    function addMovieToDataBase(e) {
+        var movie = {
+            Title: this["title"].value,
+            Genre: this["genre"].value,
+            DirectorName: this["directorName"].value
         };
-
-        $.ajax({
-            url: 'https://localhost:44325/api/movie',
-            dataType: 'json',
-            type: 'post',
-            contentType: 'application/json',
-            data: JSON.stringify(dict),
-            success: function(data){
-                $('#response pre').html(data);
-            },
-            error: function(errorThrown){
-                console.log(errorThrown);
-            }
-        });
-
+        ajax('https://localhost:44325/api/movie', 'post', JSON.stringify(movie),
+        function(data){
+            $('#response pre').html(data);
+            });
         e.preventDefault();
     }
+    $('#my-form').submit(addMovieToDataBase);
 
-    $('#my-form').submit( addMovieToDataBase );
+})
+(jQuery);
 
 
-    function showAllMovies(){
-        $.ajax({
-            url: 'https://localhost:44325/api/movie',
-            dataType: 'json',
-            type: 'get',
-            contentType: 'application/json',
-            success: function (data) {
-                $("#DisplayScreen").html('');
-                var DIV = '';
-                $.each(data, function(i, item){
-                    var rows = "<tr>" +
-                    "<td id = 'Title'>" + item + "</td>" +
-                    "</tr";
-                $("#Table").append(rows);
-                });
-                console.log(data);
-            },
-            error: function( jqXhr, textStatus, errorThrown ){
-                console.log( errorThrown );
-            }
+function makeTable() {
+    ajax('https://localhost:44325/api/movie', 'get', null, function (data, textStatus, jQxhr) {
+            $.each(data, function (i, value) {
+                var rows = "<tr>" + "<td id='title'>" + value.title + "</td>" + "<td id='directorName'>" + value.directorName + "</td>" + "<td id='genre'>" + value.genre + "</td>";
+                 table.append(rows);
+                 });
         });
-    };
+}
 
-
-    $('#showAllMovies').submit( showAllMovies );
-
-
-    
-
-
-    
+makeTable();
 
 
 
-
-
-})(jQuery);
 
