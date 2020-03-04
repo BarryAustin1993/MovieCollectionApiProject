@@ -23,27 +23,32 @@ function ajax(url, type, info, htmlMethod) {
         };
         ajax('https://localhost:44325/api/movie', 'post', JSON.stringify(movie),
         function(data){
+            console.log(data);
             $('#response pre').html(data);
             });
         e.preventDefault();
     }
     $('#my-form').submit(addMovieToDataBase);
-
 })
 (jQuery);
 
 
 function makeTable() {
-    ajax('https://localhost:44325/api/movie', 'get', null, function (data, textStatus, jQxhr) {
-            $.each(data, function (i, value) {
-                var rows = "<tr>" + "<td id='title'>" + value.title + "</td>" + "<td id='directorName'>" + value.directorName + "</td>" + "<td id='genre'>" + value.genre + "</td>";
-                 table.append(rows);
-                 });
+    ajax('https://localhost:44325/api/movie', 'get', null, function (data) {    
+    $.each(data, tableAppend)  
         });
+};
+        
+
+function tableAppend(i ,value){
+
+    console.log(value);
+    var rows = "<tr>" + 
+                "<td id='title'>" + value.title + "</td>" + 
+                "<td id='directorName'>" + value.directorName + "</td>" + 
+                "<td id='genre'>" + value.genre + "</td>" +
+                "</tr>";
+                 table.append(rows);
 }
 
 makeTable();
-
-
-
-
