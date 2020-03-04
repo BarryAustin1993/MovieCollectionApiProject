@@ -51,7 +51,7 @@ function addMovieToDataBase( e ){
     };
 
 
-    $('#showAllMovies').submit( showAllMovies );
+    $('#showAllMovies').click( showAllMovies );
 
 
     
