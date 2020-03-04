@@ -33,16 +33,17 @@ function ajax(url, type, info, htmlMethod) {
 
 function editMovie(movieId){
     var title = promptFor("What should the title be?", chars);
-    var genre = promptFor("Who is the director?", chars);
-    var directorName = promptFor("What should the genre be?", chars);
-
+    var directorName = promptFor("Who is the director?", chars);
+    var genre = promptFor("What should the genre be?", chars);
+    
     var movie = {
+        MovieId: movieId,
         Title: title,
-        Genre: genre,
-        DirectorName: directorName
+        DirectorName: directorName,
+        Genre: genre
     };
 
-    ajax('https://localhost:44325/api/movie/' + movieId, 'put', movie,
+    ajax('https://localhost:44325/api/movie/' + movieId, 'put', JSON.stringify(movie),
     function(data){
         console.log("sucess?")
 
@@ -73,7 +74,7 @@ makeTable();
 // function that prompts and validates user input
 function promptFor(question, callback){
     do{
-      var response = prompt(question).trim();
+      var response = prompt(question);
     } while(!response || !callback(response));
     return response;
   }
